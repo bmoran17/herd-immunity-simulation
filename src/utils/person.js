@@ -17,7 +17,7 @@ class Person {
    * Generates a random number and compares to virus's mortality_rate.
    * If random number is smaller, person dies from the disease.
    * If Person survives, they become vaccinated and they have no infection.
-   * @returns {Boolean} - If the person survived the infection.
+   * @returns {boolean} - If the person survived the infection.
    */
   did_survive_infection() {
     // Only called if infection attribute is not none
