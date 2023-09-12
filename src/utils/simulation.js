@@ -66,15 +66,34 @@ class Simulation {
     return false;
   }
 
+  /**
+   * Runs the simulation until all requirements for ending the simulation are met.
+   * If simulation continues, we call time_step method to compute a time step in the simulation 
+   * and infect_newly_infected to add virus object to people infected in the time step.
+   */
   run() {
-
+    let time_steps = 0;
+    while (this.simulation_should_continue()) {
+      this.time_step();
+      time_steps += 1;
+      this.infect_newly_infected();
+    }
+    console.log(`The simulation has ended after ${time_steps} turns.`);
   }
 
+  /**
+   * Contains all the logic for computing one time step in the simulation.
+   */
   time_step() {
+    let interaction = 0; 
 
   }
 
   interaction() {
+
+  }
+
+  infect_newly_infected() {
 
   }
 }
