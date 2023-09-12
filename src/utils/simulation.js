@@ -57,8 +57,13 @@ class Simulation {
    * The simulation should only end if the entire population is dead or everyone is vaccinated.
    * @return {boolean} - If simulation should continue. 
    */
-  _simulation_should_continue() {
-
+  simulation_should_continue() {
+    for (const person in this.population) {
+      if (person.is_alive && !person.is_vaccinated) {
+        return true;
+      }
+    }
+    return false;
   }
 
   run() {
