@@ -119,8 +119,17 @@ class Simulation {
     }
   }
 
-  infect_newly_infected() {
-
+  /**
+   * Iterates through the list of ids stored in self.newly_infected and updates
+   * each Person object with the virus object.
+   * @param id - The id of the random person. 
+   */
+  infect_newly_infected(id) {
+    for(const id in this.newly_infected) {
+      this.population[id].infection = this.virus;
+    }
+    // reset to empty array
+    this.newly_infected = [];
   }
 }
 
