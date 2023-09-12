@@ -41,6 +41,7 @@ class Simulation {
     // infect people in population
     for (let i = 0; i < this.initial_infected; i++) {
       const randomPerson = randomPeopleIds[i]; 
+      this.newly_infected.push(randomPerson);
       pop[randomPerson].infection = this.virus;
     }
 
@@ -83,14 +84,39 @@ class Simulation {
 
   /**
    * Contains all the logic for computing one time step in the simulation.
+   * For each infected person there will be 100 random interactions as long as the person is alive
+   * and is no the same. 
    */
   time_step() {
     let interaction = 0; 
-
+    for (const id in this.newly_infected) {
+      let infected = this.population[id];
+      while (interaction <= 100) {
+        const randomNum = Math.floor(Math.random() * this.pop_size);
+        let randomPerson = this.population[randomNum];
+        // if random person is alive & not the same as infected => interaction
+        if (randomPerson.is_alive && infected !== randomPerson) {
+          this.simulation.interaction(infected, this.population[randomPerson]);
+          interaction += 1;
+        }
+      }
+    }
   }
 
-  interaction() {
-
+  /**
+   * Called any time two living people are selected for an interaction. 
+   * If random person becomes infected, their id is then added to newly_infected array. 
+   * @param person - The initial infected person.
+   * @param random_person - The random person that person(param) interacted with.
+   */
+  interaction(person, random_person) {
+    // random person is vaccinated => nothing happens
+    // random person infected already => nothing happens
+    // random person gets infected
+    const randomNum = Math.random();
+    if (randomNum < this.virus.repro_rate) {
+      this.newly_infected.push(random_person._id);
+    }
   }
 
   infect_newly_infected() {
