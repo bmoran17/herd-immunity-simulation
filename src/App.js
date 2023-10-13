@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import Form from "./components/Form";
+import Form from "./components/form/Form";
 import Virus from "./utils/virus";
-import Timestep from "./components/Timestep";
-import Population from "./components/Population";
+import Timestep from "./components/timestep/Timestep";
+import Population from "./components/create_population/Population";
+import Description from "./components/description/Description";
 import "./app.css";
+
 
 function App() {
   const [popSize, setPopSize] = useState(0);
@@ -36,6 +38,7 @@ function App() {
   return (
     <>
     <h1>Herd Immunity Simulation</h1>
+    <Description />
     <Form 
       renderSimulation={renderSimulation}
       setPopSize={setPopSize} 
@@ -46,7 +49,7 @@ function App() {
       setVirusReproRate={setVirusReproRate}
       setVirusMortaRate={setVirusMortaRate}
     />
-    <Population />
+    <Population data={data} />
     <Timestep data={data} />
     </>
   );

@@ -1,0 +1,13 @@
+.title {
+  text-align: center;
+}
+
+hr {
+  width: 80%;
+  border-top: 2px solid black;
+}
+
+.pop-container {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,22 @@
+.title {
+  text-align: center;
+}
+
+hr {
+  width: 80%;
+  border-top: 2px solid black;
+}
+
+.pie-chart {
+  width: 250px;
+}
+
+.info-container {
+  display: flex;
+  justify-content: center;
+}
+
+.timestep-info {
+  min-width: 350px;
+}
+
