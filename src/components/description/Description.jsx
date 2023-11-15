@@ -15,8 +15,8 @@ const Description = () => {
       all died or became vaccinated.</p>
 
       <p className="directions"><span>Directions: </span>Input data for simulation and virus details below. Click
-      submit to run simulation. You will then see the initial breakdown of the population, the total number 
-      number of timesteps taken, and each individual timestep.</p>
+      submit to run simulation. You will then see the initial breakdown of the population and a distribution of 
+      infected, vaccinated, dead, and unvaccinated people for each timestep.</p>
     </div>
   )
 }

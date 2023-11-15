@@ -7,16 +7,19 @@ hr {
   border-top: 2px solid black;
 }
 
-.pie-chart {
-  
-}
-
 .info-container {
-  display: flex;
-  justify-content: center;
+ text-align: center;
+  height: 300px;
+  margin: auto;
 }
 
-.timestep-info {
-  min-width: 350px;
+.line-chart {
+  width: 480px;
+  height: auto;
+  margin: auto;
+}
+
+.timesteps-summary {
+  min-width: 100x;
 }
 

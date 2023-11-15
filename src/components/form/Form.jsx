@@ -109,7 +109,7 @@ const Form = (props) => {
             <div className="input">
               <label htmlFor="name">Name:</label>
               {getIcon(5)}
-              <input type= "text" name="name"/>
+              <input type= "text" name="name" required/>
             </div>
             <br/>
             <div className="input">
