@@ -9,5 +9,45 @@ hr {
 
 .pop-container {
   display: flex;
+  height: 300px;
   justify-content: center;
+  gap: 30px;
+}
+
+.pop-details {
+  text-align: center;
+  margin: auto 0;
+}
+
+.pie-chart {
+  width: 350px;
+  height: 350px;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+table, td, tr {
+  border: 2px solid black;
+  padding: 3px 5px;
+}
+
+td {
+  width: 100px;
+  height: 20px;
+}
+
+.vaccinated-row {
+  background-color: rgb(9, 189, 15);
+}
+
+.unvaccinated-row {
+  background-color: rgb(54, 162, 235);
+}
+
+.infected-row {
+  margin: 0;
+  background-color: rgb(230, 15, 11);;
 }

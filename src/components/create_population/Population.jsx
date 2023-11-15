@@ -1,29 +1,74 @@
 import { useState } from "react";
-import PieChart from '../PieChart';
+import { Pie } from "react-chartjs-2";
+import 'chart.js/auto';
 import "./population.css";
 
 const Population = (props) => {
   const {data} = props;
-  console.log("data for pop", data )
+  console.log("data for pop", data)
 
   const[populationData, setPopulationData] = useState({
+    labels: [
+      'Unvaccinated',
+      'Vaccinated',
+      'Infected'
+    ],
     datasets: [{
-      label: "Data",
-      data: [2,3,6,54,5]
+      label: 'People',
+      data: [data[1], data[2], data[3]],
+      backgroundColor: [
+        'rgb(54, 162, 235)',
+        'rgb(9, 189, 15)',
+        'rgb(230, 15, 11)'
+      ]
     }]
   });
   
+  const options = {
+    plugins: {
+      legend: {
+        position: 'left'
+      }
+    }
+  }
+
   return (
     <div>
-      <h2 className="title">Creating Population</h2>
+      <h2 className="title">Initial Population</h2>
       <div className="pop-container">
         <div className="pie-chart">
-          <PieChart chartData ={populationData} />
+          <Pie className="pie-chart" data={populationData} options={options}/>
         </div>
         <div className="pop-details">
-        <p>Total population: </p>
-        <p>Amount Vaccinated: </p>
-        <p>Amount Infected: </p>
+        <table>
+          <tr>
+            <td></td>
+            <td>People</td>
+            <td>Percentage</td>
+          </tr>
+          <tr>
+            <td>Initial Population</td>
+            <td>{data[0]}</td>
+            <td>---</td>
+          </tr>
+          <tr>
+            <td className="vaccinated-row">Vaccinated</td>
+            <td>#</td>
+            <td>%</td>
+          </tr>
+          <tr>
+            <td className="unvaccinated-row">Unvaccinated</td>
+            <td>#</td>
+            <td>%</td>
+          </tr>
+          <tr>
+            <td className="infected-row">Infected</td>
+            <td>#</td>
+            <td>%</td>
+          </tr>
+        </table>
+
+        <p><span>Results: </span> 7 timesteps </p>
         </div>
       </div>
       <hr />

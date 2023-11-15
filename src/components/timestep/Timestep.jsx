@@ -1,31 +1,37 @@
 import { useState } from "react";
-import PieChart from '../PieChart';
+import { Pie } from "react-chartjs-2";
 import "./timestep.css";
 
 const Timestep = (props) => {
   const {data} = props;
-  console.log("dataaaa", data);
 
   const [timestepData, setTimestepData] = useState({
+    labels: [
+      'Infected',
+      'Dead',
+      'Vaccinated',
+      'Unvaccinated'
+    ],
     datasets: [{
-      label: "Data",
-      data: [1,2,3,4,5]
-    }]
+      label: "People",
+      data: [1,2,3,4]
+    }],
+    hoverOffset: 10
   });
 
   return (
     <div className="timesteps">
-      <h2 className="title">Time Step # []</h2>
+      <h2 className="title">Time Step # 1</h2>
       <div className="info-container">
         <div className="pie-chart">
-          <PieChart chartData ={timestepData} />
+          {/* <Pie chartData ={timestepData} /> */}
         </div>
         <div className="timestep-info">
-        <p>During this timestep, [infected amount] interacted with [interactions] people. Resulting in: </p>
-        <p>Infected Amount: {data[2]}</p>
-        <p>Dead Amount: {data[3]}</p>
-        <p>Vaccinated Amount: {data[4]}</p> 
-        <p>Healthy, unvaccinated people: </p>
+        <p>[infected amount] interacted with [interactions] people. Resulting in: </p>
+        <p>{data[2]} more infected</p>
+        <p>{data[3]} dead</p>
+        <p>{data[4]} more vaccinated</p> 
+        <p>{data[5]} still healthy, unvaccinated</p>
         </div>
       </div>
       

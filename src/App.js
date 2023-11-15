@@ -16,12 +16,11 @@ function App() {
   const [virusReproRate, setVirusReproRate] = useState(0);
   const [virusMortaRate, setVirusMortaRate] = useState(0);
   const [beginSimulation, setBeginSimulation] = useState(false);
-
+ 
   const renderSimulation = () => {
     setBeginSimulation(!beginSimulation);
   }
-
-  const data = [10, 2, 5, 1, 3, 12 ];
+  const data = [100, 15, 5, 2, 12, 45];
 
   const startSimulation = () => {
     const virus = new Virus(virusName, virusReproRate, virusMortaRate);
