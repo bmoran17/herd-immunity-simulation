@@ -28,6 +28,12 @@ class Simulation {
  */
   getAlivePeople(id) {
     return this.population.filter((person) => person.is_alive && id !== person._id && !person.is_vaccinated && !person.infection);
+
+    // return this.population.map((person) => {
+    //   if (person.is_alive && id !== person._id && !person.is_vaccinated && !person.infection) {
+    //     return person._id
+    //   }
+    // })
   }
 
   /**
@@ -92,7 +98,6 @@ class Simulation {
       this.kill_or_vaccinate();
       this.infect_newly_infected();
     }
-    //console.log("run should2", this.simulation_should_continue())
     console.log("still sick", this.population.filter((person) => person.infected))
     console.log(`The simulation has ended after ${time_steps} turns.`);
   }
@@ -105,15 +110,14 @@ class Simulation {
    */
   interaction_sample (alive, count) {
     let sample = [];
-    let counter = 0;
 
-    while (counter < count) {
+    while (count > 0) {
       const random_num = Math.floor(Math.random() * alive.length);
       const alive_person= alive[random_num];
       // checks sample array to see if alive person is not in array
       if (!sample.some(person =>  person === alive_person)) {
         sample.push(alive_person._id);
-        counter += 1
+        count--
       }
     }
     return sample;
@@ -126,28 +130,23 @@ class Simulation {
    * person interacts with each one. 
    */
   time_step() {
-    this.current_infected.forEach((infected) => {
+    this.current_infected.forEach((infected_id) => {
+      let interactions = undefined;
       // list of people that can get infected
-      let healthy_people = this.getAlivePeople(infected);
-      // if less than total interactions needed => interact with all
+      let healthy_people = this.getAlivePeople(infected_id);
+      console.log("still alive", healthy_people)
+
       if (healthy_people.length <= this.total_interactions) {
-        for (let i = 0; i < healthy_people.length; i++) {
-          const healthy_person = healthy_people[i];
-          // check that person was not previously interact and infected during same timestep
-          if (this.newly_infected.indexOf(healthy_person._id) === -1) {
-            this.interaction(healthy_person._id);
-          } 
-        }
+        interactions = healthy_people.map((person) => person._id)
       } else {
-        // get interaction sample with method interaction_sample
-        const interactions = this.interaction_sample(healthy_people, this.total_interactions);
-        interactions.forEach((rand_healthy_person_id) => {
-          // if random person is not already in newly_infected => interaction
-          if (this.newly_infected.indexOf(rand_healthy_person_id) === -1) {
-            this.interaction(rand_healthy_person_id);
-          }  
-        })
+        interactions = this.interaction_sample(healthy_people, this.total_interactions);
       }
+
+      interactions.forEach((healthy_person) => {
+        if (this.newly_infected.indexOf(healthy_person) === -1) {
+          this.interaction(healthy_person);
+        } 
+      })
     })
   }
 
@@ -178,14 +177,13 @@ class Simulation {
   }
 
   /**
-   * Iterates through population and for each person infected it runs did_survive_infection,
-   * which determines if person becomes immune or dies from infection.
+   * Runs the method did_survive_infection on each current infected person
+   * to determines if person becomes immune or dies from infection.
    */
   kill_or_vaccinate() {
-    this.population.forEach((person) => {
-      if (person.infection) {
-        person.did_survive_infection();
-      }
+    this.current_infected.forEach((infected_id) => {
+      const infected = this.population[infected_id];
+      infected.did_survive_infection()
     })
   }
 }
