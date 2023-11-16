@@ -1,23 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Simulation from './utils/simulation';
+import Virus from './utils/virus';
 
 function App() {
+  const virus1 = new Virus ("Ebola", .21, .27 )
+  const simulation = new Simulation (20000, .10, 100, virus1, 10)
+  simulation.run()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      hello
     </div>
   );
 }
