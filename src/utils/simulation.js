@@ -74,15 +74,8 @@ class Simulation {
       return false;
     }
 
-    for (let i = 0; i < this.pop_size; i++) {
-      const person = this.population[i];
-      // continue if there's someone alive healthy unvaccinated
-      if (person.is_alive && !person.is_vaccinated) {
-        return true;
-      }
-    }
-    // all vaccinated/dead
-    return false;
+    // checks if there's still a healthy unvaccinated person alive
+    return (this.population.some((person) => person.is_alive && !person.is_vaccinated))
   }
 
   /** 
@@ -92,12 +85,14 @@ class Simulation {
    */
   run() {
     let time_steps = 0;
+    //console.log("run should", this.simulation_should_continue())
     while (this.simulation_should_continue()) {
       this.time_step();
       time_steps += 1;
       this.kill_or_vaccinate();
       this.infect_newly_infected();
     }
+    //console.log("run should2", this.simulation_should_continue())
     console.log("still sick", this.population.filter((person) => person.infected))
     console.log(`The simulation has ended after ${time_steps} turns.`);
   }
