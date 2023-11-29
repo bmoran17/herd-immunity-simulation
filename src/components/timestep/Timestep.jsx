@@ -51,7 +51,7 @@ const Timestep = (props) => {
 
   return (
     <div className="timesteps">
-      <h2 className="title">Timesteps</h2>
+      <h2 className="timestep-title">Timesteps</h2>
       <div className="info-container">
         <div className="line-chart">
           <Line data={timestepData} options={options}/>
