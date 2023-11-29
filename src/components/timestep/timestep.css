@@ -1,10 +1,11 @@
-.title {
+.timestep-title {
   text-align: center;
+  margin: 15px;
 }
 
-hr {
-  width: 80%;
-  border-top: 2px solid black;
+.timesteps > hr {
+  margin-top: -8px;
+  margin-bottom: 10px;
 }
 
 .info-container {

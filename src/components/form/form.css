@@ -1,6 +1,4 @@
-html {
-  background-color: #f1f1f1;
-}
+
 .inputs-container {
   display: flex;
   justify-content: center;
@@ -22,7 +20,7 @@ input {
   border: 0px;
   outline: 0px;
   padding: 6px;
-  width: 75px;
+  width: 85px;
 }
 
 .info-title {
@@ -35,11 +33,6 @@ input {
 
 form {
   min-width: 200px;
-}
-
-hr {
-  width: 80%;
-  border-top: 2px solid black;
 }
 
 .submit-btn {
@@ -56,5 +49,3 @@ button {
   border: 0px;
   font-weight: 580;
 }
-
-img {}

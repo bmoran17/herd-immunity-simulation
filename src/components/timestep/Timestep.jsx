@@ -57,7 +57,7 @@ const Timestep = (props) => {
           <Line data={timestepData} options={options}/>
         </div>
         <div className="timesteps-summary">
-          <p>At timestep [4], virus died out or there was no one else to infect.</p>
+          <p>At timestep 4, virus died out or there was no one else to infect.</p>
         </div>
       </div>
       

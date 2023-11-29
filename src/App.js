@@ -35,22 +35,26 @@ function App() {
   }, [beginSimulation]);
 
   return (
-    <>
-    <h1>Herd Immunity Simulation</h1>
-    <Description />
-    <Form 
-      renderSimulation={renderSimulation}
-      setPopSize={setPopSize} 
-      setVaccPerc={setVaccPerc} 
-      setInitialInfected={setInitialInfected}
-      setInteractions={setInteractions}
-      setVirusName={setVirusName}
-      setVirusReproRate={setVirusReproRate}
-      setVirusMortaRate={setVirusMortaRate}
-    />
-    <Population data={data} />
-    <Timestep data={data} />
-    </>
+    <div className="app">
+      <div className="left-space"></div>
+      <div className="simulation-content">
+        <h1>Herd Immunity Simulation</h1>
+        <Description />
+        <Form 
+          renderSimulation={renderSimulation}
+          setPopSize={setPopSize} 
+          setVaccPerc={setVaccPerc} 
+          setInitialInfected={setInitialInfected}
+          setInteractions={setInteractions}
+          setVirusName={setVirusName}
+          setVirusReproRate={setVirusReproRate}
+          setVirusMortaRate={setVirusMortaRate}
+        />
+        <Population data={data} />
+        <Timestep data={data} />
+      </div>
+      <div className="right-space"></div>
+    </div>
   );
 }
 

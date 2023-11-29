@@ -53,17 +53,17 @@ const Population = (props) => {
             </tr>
             <tr>
               <td className="vaccinated-row">Vaccinated</td>
-              <td>#</td>
+              <td>{data[2]}</td>
               <td>%</td>
             </tr>
             <tr>
               <td className="unvaccinated-row">Unvaccinated</td>
-              <td>#</td>
+              <td>{data[1]}</td>
               <td>%</td>
             </tr>
             <tr>
               <td className="infected-row">Infected</td>
-              <td>#</td>
+              <td>{data[3]}</td>
               <td>%</td>
             </tr>
           </table>
