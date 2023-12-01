@@ -23,11 +23,10 @@ class Simulation {
 
 /**
  * It filters through population for people who can still get sick.
- * @param {number} id - The id of the current person infected.
  * @returns {array} - Id of healthy people who are unvaccinated and not infected.
  */
-  getAlivePeople(id) {
-    const peopleAlive = this.population.filter((person) => person.is_alive && id !== person._id && !person.is_vaccinated && !person.infection);
+  getAlivePeople() {
+    const peopleAlive = this.population.filter((person) => person.is_alive && !person.is_vaccinated && !person.infection);
     return peopleAlive.map((person) => person._id)
   }
 
@@ -92,23 +91,30 @@ class Simulation {
       this.kill_or_vaccinate();
       this.infect_newly_infected();
     }
+    console.log("still sick", this.population.filter(person => person.infection))
+    console.log("still unvacc", this.population.filter(person => person.is_alive && !person.is_vaccinated))
+    console.log("The simulation lasted " + time_steps)
   }
 
   /**
-   * It provides us randomly selected people ids we can interact with. 
-   * @param {array} alive - People ids who are alive and not vaccinated.
-   * @param {number} count - The amount of people we want from the alive array (interactions needed).
-   * @returns {array} sample - Ids of people who can get sick.
+   * It provides us the sample of people our current infected person will interact with.
+   * @returns {array} sample - Ids of people who infected person will interact with.
    */
-  interaction_sample (alive, count) {
+  interaction_sample () {
     let sample = [];
+    // list of people that can get infected
+    let healthy_people = this.getAlivePeople();
+    if (healthy_people.length <= this.total_interactions) {
+      return healthy_people;
+    } 
 
+    let count = this.total_interactions;
     while (count > 0) {
-      const random_num = Math.floor(Math.random() * alive.length);
-      const alive_person= alive[random_num];
+      const random_num = Math.floor(Math.random() * healthy_people.length);
+      const healthy_person= healthy_people[random_num];
       // checks sample array to see if alive person is not in array
-      if (!sample.some(person =>  person === alive_person)) {
-        sample.push(alive_person);
+      if (!sample.some(person =>  person === healthy_person)) {
+        sample.push(healthy_person);
         count--
       }
     }
@@ -116,42 +122,35 @@ class Simulation {
   }
 
   /**
-   * Each infected person will have interactions with healthy people.
-   * First the infected person is passed to the getter method getAlivePeople to generate a list of people that can still get infected.
-   * If healthy people is less than the total interactions, the infected person interacts will all healthy people. 
-   * If healthy people is more than the total interactions, we call the method interaction_sample() to generate an array with
-   * random healthy people's ids for our interactions. 
+   * We get list of people that infected people interacted with (healthy people) and run interactions()
+   * method to see if healthy person becomes infected.
    */
   time_step() {
-    this.current_infected.forEach((infected_id) => {
-      let interactions = undefined;
-      // list of people that can get infected
-      let healthy_people = this.getAlivePeople(infected_id);
+    console.log("current infected", this.current_infected)
 
-      if (healthy_people.length <= this.total_interactions) {
-        interactions = healthy_people
-      } else {
-        interactions = this.interaction_sample(healthy_people, this.total_interactions);
-      }
-
+    for (let i = 0; i < this.current_infected.length; i++) {
+      let interactions = this.interaction_sample()
+      console.log("interactions", interactions)
       interactions.forEach((healthy_person) => {
         if (this.newly_infected.indexOf(healthy_person) === -1) {
           this.interaction(healthy_person);
         } 
-      })
-    })
+      }) 
+    }
   }
 
   /**
-   * @param id - The healthy unvaccinated person's id that interacted with the infected person.
    * Called any time an infected person interacts with a healthy unvaccinated person. 
    * If random person becomes infected, their id is then added to newly_infected array. 
+   * @param id - The healthy unvaccinated person's id that interacted with the infected person.
    */
   interaction(id) {
     const random_num = Math.random();
     if (random_num < this.virus.repro_rate) {
+      console.log("person infected", id)
       this.newly_infected.push(id);
     } else {
+      console.log("person save", id)
     }
   }
 
@@ -161,6 +160,7 @@ class Simulation {
    * Newly_infected is set to current_infected and then to an empty array. 
    */
   infect_newly_infected() {
+    console.log("newly infected", this.newly_infected)
     this.newly_infected.forEach((person) => {
       this.population[person].infection = this.virus
     })
