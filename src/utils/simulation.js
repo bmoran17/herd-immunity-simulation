@@ -73,9 +73,7 @@ class Simulation {
     if (this.current_infected.length === 0) {
       return false;
     }
-
-    // checks if there's still a healthy unvaccinated person alive
-    return (this.population.some((person) => person.is_alive && !person.is_vaccinated && !person.infection))
+    return this.getAlivePeople() === 0 ? false : true;
   }
 
   /** 
@@ -84,16 +82,13 @@ class Simulation {
    * call the methods: time_step, kill_or_vaccinate_, infect_newly_infected.
    */
   run() {
-    let time_steps = 0;
+    // let time_steps = 0;
     while (this.simulation_should_continue()) {
       this.time_step();
-      time_steps += 1;
+      // time_steps += 1;
       this.kill_or_vaccinate();
       this.infect_newly_infected();
     }
-    console.log("still sick", this.population.filter(person => person.infection))
-    console.log("still unvacc", this.population.filter(person => person.is_alive && !person.is_vaccinated))
-    console.log("The simulation lasted " + time_steps)
   }
 
   /**
@@ -126,11 +121,8 @@ class Simulation {
    * method to see if healthy person becomes infected.
    */
   time_step() {
-    console.log("current infected", this.current_infected)
-
     for (let i = 0; i < this.current_infected.length; i++) {
       let interactions = this.interaction_sample()
-      console.log("interactions", interactions)
       interactions.forEach((healthy_person) => {
         if (this.newly_infected.indexOf(healthy_person) === -1) {
           this.interaction(healthy_person);
@@ -147,11 +139,8 @@ class Simulation {
   interaction(id) {
     const random_num = Math.random();
     if (random_num < this.virus.repro_rate) {
-      console.log("person infected", id)
       this.newly_infected.push(id);
-    } else {
-      console.log("person save", id)
-    }
+    } 
   }
 
   /**
@@ -160,7 +149,6 @@ class Simulation {
    * Newly_infected is set to current_infected and then to an empty array. 
    */
   infect_newly_infected() {
-    console.log("newly infected", this.newly_infected)
     this.newly_infected.forEach((person) => {
       this.population[person].infection = this.virus
     })

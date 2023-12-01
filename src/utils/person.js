@@ -25,12 +25,10 @@ class Person {
     if (randomNum < mortality_rate) {
       this.is_alive = false;
       this.infection = null;
-      console.log("person dead", this._id)
       return false;
     }
     this.is_vaccinated = true;
     this.infection = null;
-    console.log("person vaccinated", this._id)
     return true;
   }
 }
