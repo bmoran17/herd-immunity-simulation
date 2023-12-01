@@ -20,18 +20,16 @@ class Person {
    * @returns {boolean} - If the person survived the infection.
    */
   did_survive_infection() {
-    // Only called if infection attribute is not none
-    if (this.infection) {
-      const randomNum = Math.random();
-      const mortality_rate = this.infection.mortality_rate;
-      if (randomNum < mortality_rate) {
-        this.is_alive = false;
-        return false;
-      }
-      this.is_vaccinated = true;
+    const randomNum = Math.random();
+    const mortality_rate = this.infection.mortality_rate;
+    if (randomNum < mortality_rate) {
+      this.is_alive = false;
       this.infection = null;
-      return true;
+      return false;
     }
+    this.is_vaccinated = true;
+    this.infection = null;
+    return true;
   }
 }
 
