@@ -20,79 +20,41 @@ const Form = (props) => {
 
   const tooltips = [
     {
-      id: "my-tooltip-0",
+      id: "my-tooltip-1",
       content: "Amount of people in population.",
       place: "left"
     },
     {
-      id: "my-tooltip-1",
+      id: "my-tooltip-2",
       content: "Rate of people already vaccinated in population.",
       place: "left"
     },
     {
-      id: "my-tooltip-2",
+      id: "my-tooltip-3",
       content: "Amount of people already infected.",
       place: "left"
     },
     {
-      id: "my-tooltip-3",
+      id: "my-tooltip-4",
       content: "Amount of interactions each infected person will have every timestep.",
       place: "left"
     },
     {
-      id: "my-tooltip-4",
+      id: "my-tooltip-5",
       content: "Name for virus.",
       place: "right"
     },
     {
-      id: "my-tooltip-5",
+      id: "my-tooltip-6",
       content: "Rate that virus spreads.",
       place: "left"
     },
     {
-      id: "my-tooltip-6",
+      id: "my-tooltip-7",
       content: "Rate of infected people who died with the virus.",
       place: "right"
     }
   ];
-
-  const inputs = [
-    {
-      name: "pop-size",
-      content: "Population Size:",
-      inputType: "number",
-    },
-    {
-      name: "vacc-perc",
-      content: "Vaccination Percentage:",
-      inputType: "number",
-    },
-    {
-      name: "initial-infected",
-      content: "Initial Infected:",
-      inputType: "number",
-    },
-    {
-      name: "interactions",
-      content: "Interactions:",
-      inputType: "number",
-    }, 
-    {
-      name: "virus-name",
-      content: "Name:",
-      inputType: "number",
-    },
-    {
-      name: "repro-rate",
-      content: "Reproduction Rate:",
-      inputType: "number",
-    },
-    {
-      name: "mortality-rate",
-      content: "Mortality Rate:",
-      inputType: "number",
-    }
-  ]
 
   const getToolTips = () => (
     tooltips.map((tip) => (
@@ -111,48 +73,62 @@ const Form = (props) => {
     />
   )
 
-  const getInput = (num) => {
-    const input = inputs[num]
-    console.log("input", input)
-    return (
-      <div className="input">
-        <label htmlFor={input.name}>{input.content}</label>
-        {getIcon(num)} 
-        <input type={input.inputType} name={input.inputType} required/>
-      </div>
-    )
-  }
-
   return (
     <div>
       <form onSubmit={handleSubmit}> 
         <div className="inputs-container">
           <div className="left pop-details">
             <p className="info-title">Simulation Details</p>
-            {getInput(0)}
+            <div className="input">
+              <label htmlFor="pop-size">Population Size:</label>
+              {getIcon(1)} 
+              <input type= "number" name="pop-size" required/>
+            </div>
             <br/>
-            {getInput(1)}
+            <div className="input">
+              <label htmlFor="vacc-perc">Vaccination Percentage:</label>
+              {getIcon(2)}
+              <input type="number" name="vacc-perc"required/>
+            </div>
             <br/>
-            {getInput(2)}
+            <div className="input">
+              <label htmlFor="initial-infected">Initial Infected:</label>
+              {getIcon(3)}
+              <input type= "number" name="initial-infected"/>
+            </div>
             <br/>
-            {getInput(3)}
+            <div className="input">
+              <label htmlFor="interactions">Interactions:</label>
+              {getIcon(4)}
+              <input type= "number" name="interactions" required/>
+            </div>
             <br/>
           </div>
           <div className="right virus-details">
             <p className="info-title">Virus Details</p>
-            {getInput(4)}
+            <div className="input">
+              <label htmlFor="name">Name:</label>
+              {getIcon(5)}
+              <input type= "text" name="name" required/>
+            </div>
             <br/>
-            {getInput(5)}
+            <div className="input">
+              <label htmlFor="repro-rate">Reproduction Rate:</label>
+              {getIcon(6)}
+              <input type= "number" name="repro-rate" required/>
+            </div>
             <br/>
-            {getInput(6)}
+            <div className="input">
+              <label htmlFor="mortality-rate">Mortality Rate:</label>
+              {getIcon(7)}
+              <input type= "number" name="mortality-rate" required/>
+            </div>
             <br/>
           </div>
         </div>
-
         <div className="submit-btn">
           <button className="form-btn" type="submit">Submit</button>
         </div>
-        
       </form>
       <hr />
       {getToolTips()}
