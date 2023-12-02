@@ -20,41 +20,79 @@ const Form = (props) => {
 
   const tooltips = [
     {
-      id: "my-tooltip-1",
+      id: "my-tooltip-0",
       content: "Amount of people in population.",
       place: "left"
     },
     {
-      id: "my-tooltip-2",
+      id: "my-tooltip-1",
       content: "Rate of people already vaccinated in population.",
       place: "left"
     },
     {
-      id: "my-tooltip-3",
+      id: "my-tooltip-2",
       content: "Amount of people already infected.",
       place: "left"
     },
     {
-      id: "my-tooltip-4",
+      id: "my-tooltip-3",
       content: "Amount of interactions each infected person will have every timestep.",
       place: "left"
     },
     {
-      id: "my-tooltip-5",
+      id: "my-tooltip-4",
       content: "Name for virus.",
       place: "right"
     },
     {
-      id: "my-tooltip-6",
+      id: "my-tooltip-5",
       content: "Rate that virus spreads.",
       place: "left"
     },
     {
-      id: "my-tooltip-7",
+      id: "my-tooltip-6",
       content: "Rate of infected people who died with the virus.",
       place: "right"
     }
   ];
+
+  const inputs = [
+    {
+      name: "pop-size",
+      content: "Population Size:",
+      inputType: "number"
+    },
+    {
+      name: "vacc-perc",
+      content: "Vaccination Percentage:",
+      inputType: "number"
+    },
+    {
+      name: "initial-infected",
+      content: "Initial Infected:",
+      inputType: "number"
+    },
+    {
+      name: "interactions",
+      content: "Interactions:",
+      inputType: "number"
+    },
+    {
+      name: "virus-name",
+      content: "Name:",
+      inputType: "text"
+    },
+    {
+      name: "repro-rate",
+      content: "Reproduction Rate:",
+      inputType: "number"
+    },
+    {
+      name: "mortality-rate",
+      content: "Mortality Rate:",
+      inputType: "number"
+    }
+  ]
 
   const getToolTips = () => (
     tooltips.map((tip) => (
@@ -65,6 +103,7 @@ const Form = (props) => {
       />
     ))
   )
+
   const getIcon = (num) => (
     <img 
       data-tooltip-id={`my-tooltip-${num}`}
@@ -72,6 +111,17 @@ const Form = (props) => {
       alt="Help Icon."
     />
   )
+  
+  const getInput = (num) => {
+    const input = inputs[num]
+    return (
+      <div className="input">
+        <label htmlFor={input.name}>{input.content}</label>
+        {getIcon(num)} 
+        <input type={input.inputType} name="pop-size" required/>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -79,50 +129,22 @@ const Form = (props) => {
         <div className="inputs-container">
           <div className="left pop-details">
             <p className="info-title">Simulation Details</p>
-            <div className="input">
-              <label htmlFor="pop-size">Population Size:</label>
-              {getIcon(1)} 
-              <input type= "number" name="pop-size" required/>
-            </div>
+            {getInput(0)}
             <br/>
-            <div className="input">
-              <label htmlFor="vacc-perc">Vaccination Percentage:</label>
-              {getIcon(2)}
-              <input type="number" name="vacc-perc"required/>
-            </div>
+            {getInput(1)}
             <br/>
-            <div className="input">
-              <label htmlFor="initial-infected">Initial Infected:</label>
-              {getIcon(3)}
-              <input type= "number" name="initial-infected"/>
-            </div>
+            {getInput(2)}
             <br/>
-            <div className="input">
-              <label htmlFor="interactions">Interactions:</label>
-              {getIcon(4)}
-              <input type= "number" name="interactions" required/>
-            </div>
+            {getInput(3)}
             <br/>
           </div>
           <div className="right virus-details">
             <p className="info-title">Virus Details</p>
-            <div className="input">
-              <label htmlFor="name">Name:</label>
-              {getIcon(5)}
-              <input type= "text" name="name" required/>
-            </div>
+            {getInput(4)}
             <br/>
-            <div className="input">
-              <label htmlFor="repro-rate">Reproduction Rate:</label>
-              {getIcon(6)}
-              <input type= "number" name="repro-rate" required/>
-            </div>
+            {getInput(5)}
             <br/>
-            <div className="input">
-              <label htmlFor="mortality-rate">Mortality Rate:</label>
-              {getIcon(7)}
-              <input type= "number" name="mortality-rate" required/>
-            </div>
+            {getInput(6)}
             <br/>
           </div>
         </div>
