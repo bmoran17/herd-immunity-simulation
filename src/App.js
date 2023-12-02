@@ -6,7 +6,6 @@ import Population from "./components/create_population/Population";
 import Description from "./components/description/Description";
 import "./app.css";
 
-
 function App() {
   const [popSize, setPopSize] = useState(0);
   const [vaccPerc, setVaccPerc] = useState(0);
