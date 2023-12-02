@@ -1,0 +1,26 @@
+.timestep-title {
+  text-align: center;
+  margin: 15px;
+}
+
+.timesteps > hr {
+  margin-top: -8px;
+  margin-bottom: 10px;
+}
+
+.info-container {
+ text-align: center;
+  height: 300px;
+  margin: auto;
+}
+
+.line-chart {
+  width: 480px;
+  height: auto;
+  margin: auto;
+}
+
+.timesteps-summary {
+  min-width: 100x;
+}
+

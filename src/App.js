@@ -1,8 +1,59 @@
+import { useEffect, useState } from "react";
+import Form from "./components/form/Form";
+import Virus from "./utils/virus";
+import Timestep from "./components/timestep/Timestep";
+import Population from "./components/create_population/Population";
+import Description from "./components/description/Description";
+import "./app.css";
+
 function App() {
+  const [popSize, setPopSize] = useState(0);
+  const [vaccPerc, setVaccPerc] = useState(0);
+  const [initialInfected, setInitialInfected] = useState(0);
+  const [interactions, setInteractions] = useState(0);
+  const [virusName, setVirusName] = useState("");
+  const [virusReproRate, setVirusReproRate] = useState(0);
+  const [virusMortaRate, setVirusMortaRate] = useState(0);
+  const [beginSimulation, setBeginSimulation] = useState(false);
+ 
+  const renderSimulation = () => {
+    setBeginSimulation(!beginSimulation);
+  }
+  const data = [100, 15, 5, 2, 12, 45];
+
+  const startSimulation = () => {
+    const virus = new Virus(virusName, virusReproRate, virusMortaRate);
+    console.log(virus)
+    // const simulation = new Simulation(popSize, vaccPerc, initialInfected, interactions);
+  }
+
+  useEffect(() => {
+    if (popSize > 0) {
+      startSimulation()
+    }
+  }, [beginSimulation]);
+
   return (
-    <p>
-      Herd Immunity Simulation
-    </p>
+    <div className="app">
+      <div className="left-space"></div>
+      <div className="simulation-content">
+        <h1>Herd Immunity Simulation</h1>
+        <Description />
+        <Form 
+          renderSimulation={renderSimulation}
+          setPopSize={setPopSize} 
+          setVaccPerc={setVaccPerc} 
+          setInitialInfected={setInitialInfected}
+          setInteractions={setInteractions}
+          setVirusName={setVirusName}
+          setVirusReproRate={setVirusReproRate}
+          setVirusMortaRate={setVirusMortaRate}
+        />
+        <Population data={data} />
+        <Timestep data={data} />
+      </div>
+      <div className="right-space"></div>
+    </div>
   );
 }
 
